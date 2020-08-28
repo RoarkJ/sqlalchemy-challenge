@@ -80,7 +80,8 @@ def tobs():
 		temp_dict[activity[0]]=activity[1]
 		
 	return jsonify(temp_dict)
-	
+
+# Example:  127.0.0.1:5000/api/v1.0/2016-11-10	
 @app.route("/api/v1.0/<start_date>")
 def vacation_date(start_date):
 	results = session.query(tables['Measurement'].date, func.min(tables['Measurement'].tobs), func.avg(tables['Measurement'].tobs), func.max(tables['Measurement'].tobs)).\
@@ -103,7 +104,6 @@ def date_range(start_date, end_date):
 	end_d={}
 	combine=OrderedDict()
 	for date_data in results:
-		
 		begin_d['Your Vacation Begin Date'] = str(start_date)
 		end_d['Your Vacation End Date'] = str(end_date)
 		range_dict[date_data[0]]={'Minimum Temperature': date_data[1], 'Average Temperature': round(date_data[2], 0), 'Maximum Temperature': date_data[3]}
